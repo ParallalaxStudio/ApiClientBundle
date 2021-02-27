@@ -1,0 +1,48 @@
+{% extends "::layoutWSDoc.html.twig" %}
+
+{% block content %}
+
+    <div class="slider">
+
+    	<div class="tabContent">
+    		<div class="tab activ" id="tab-wsdoclist" style="width:100%;">
+                <div class="overflow">
+                    <div class="card">
+                        <div class="card-head">
+                            <header>Liste des documents</header>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width:30px;">#</th>
+                                        <th>Document</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for document in allDocuments %}
+                                        <tr>
+                                            <td>{{ document.id }}
+                                            <td>{{ document.name }}</td>
+                                            <td>
+                                                <a href="{{ path('client_wsfd_edit', {'id': document.id}) }}">
+                                                    {# if document.custom #}
+                                                        <!--<div class="btn btn-xs ink-reaction btn-raised btn-primary"><i class="fa fa-edit"></i> editer</div>-->
+                                                    {# else #}
+                                                    <div class="btn btn-xs ink-reaction btn-raised btn-primary"><i class="fa fa-cog"></i> personnaliser</div>
+                                                    {# endif #}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

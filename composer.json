@@ -1,0 +1,22 @@
+{
+    "name" : "parallalax/apiclientbundle",
+    "description" : "",
+    "type" : "symfony-bundle",
+    "authors" : [{
+        "name" : "ParallalaxStudio",
+        "email" : "contact@parallalaxstudio.fr"
+    }],
+    "license" : [
+        "MIT"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Parallalax\\ApiClientBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Parallalax\\ApiClientBundle\\Tests\\": "tests/"
+        }
+    }
+}
