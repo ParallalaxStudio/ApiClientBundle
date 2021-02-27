@@ -2,8 +2,7 @@
 
 namespace Parallalax\ApiClientBundle;
 
-use App\Myvendor\ApiClientBundle\DependencyInjection\ParallalaxApiClientExtension;
-use App\Myvendor\SynchroBundle\DependencyInjection\MyvendorSynchroExtension;
+use Parallalax\ApiClientBundle\DependencyInjection\ParallalaxApiClientExtension;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

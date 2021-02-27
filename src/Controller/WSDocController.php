@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
- * @Route("/apiclient", name="myvendor_apiclient_")
+ * @Route("/apiclient", name="parallalax_apiclient_")
  * @Security ("user.getCompany().getParent() === null")
  *
  * Class WSDocController
