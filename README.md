@@ -3,4 +3,4 @@
 add routes
 
 `parallalax_apiclient:
-resource: '@MyvendorApiClientBundle/config/routes.yaml'`
+resource: '@ParallalaxApiClientBundle/config/routes.yaml'`
