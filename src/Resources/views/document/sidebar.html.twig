@@ -1,0 +1,181 @@
+
+<div class="aside form-horizontal" style="overflow: auto;">
+    <div class="col-md-12">
+        <div class="form-group btn-group" role="group">
+            <div class="btn-group" role="group">
+                <a href="{{ path('apiclient_document_home') }}">
+                    <button class="btn btn-warning btn-outline"><i class="fa fa-list"></i> documents</button>
+                </a>
+            </div>
+
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Page {{ currentPage.num }}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" id="page" name="page" class="form-control">
+                    {% for page in document.pages %}
+                        <li value="{{ page.num }}" data-id="{{ page.id }}" {{ page.id == currentPage.id ? 'class="selected"' }}>
+                            <a href="{{ path('apiclient_document_edit', {'id': app.request.attributes.get('id'), 'pageNum': page.num}) }}">Page {{ page.num }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="btn-group" role="group">
+                <a href="#" class="js-configure_page">
+                    <button class="btn btn-primary btn-outline"><i class="fas fa-cog fa-pulse"></i></button>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="js-page_configuration" style="display:none;">
+            <form id="form-file" action="{# path('client_wsfd_page_edit', {'id': currentPage.id, 'pageNum': currentPage.num}) #}" class="files" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <div class="btn btn-primary btn-xs" style="position:relative;">
+                        <i class="fa fa-folder-o"></i> Parcourir...
+                        <input type="file" id="page_background" name="page_background" style="position:absolute;top:0;left:0;bottom:0;width:100%;opacity:0;">
+                    </div>
+                    <button type="submit" class="btn btn-xs btn-default-light ink-reaction js-uploadfile">Envoyer</button>
+                </div>
+            </form>
+            <div class="form-group">
+                <select id="ws_doc_element_group" name="ws_doc_element_group" class="form-control" data-url="{{ path('apiclient_field_edit') }}">
+                    <option>Choisir un type d'élément</option>
+                    {% for groupElement in currentPage.groups %}
+                        <option value="{{ groupElement.id}}">{{ groupElement.label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group js-fields_content">
+
+            </div>
+            <!--<div class="form-group">
+                <label for="field" class="col-sm-3 control-label">Champs</label>
+                <div class="col-md-9">
+                    <select id="field" name="field" class="form-control">
+                        <option>Choisir un champ</option>
+                    </select>
+                </div>
+            </div>-->
+        </div>
+        <hr>
+        <div class="loader-container">
+
+        </div>
+        <div class="content" style="display:none;">
+            <button class="btn btn-primary btn-outline js-configure"><i class="fas fa-cog fa-pulse"></i> configurer</button>
+            <button class="btn btn-danger delete_element"><i class="fa fa-trash"></i></button>
+
+            <div class="configure_content">
+
+            </div>
+
+            {{ form_start(form, {'attr': {'class': 'ajax'}}) }}
+            <div class="form-group">
+                <label class="col-sm-12 control-label" style="text-align:left;">Type Element : <span id="ws_doc_element_group_label"></span></label>
+            </div>
+
+            {{ form_row(form.label) }}
+            {{ form_row(form.position_x) }}
+            {{ form_row(form.position_y) }}
+
+            <hr>
+            <h4>Style</h4>
+            {# form_row(form.font_weight) #}
+
+            <div class="form-group">
+                <div class="pull-left" style="margin-right:10px;">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-default-light ink-reaction js-alignment" data-value="left" data-target="#element_text_align"><i class="fa fa-align-left"></i></button>
+                        </div>
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-default-light ink-reaction js-alignment" data-value="center" data-target="#element_text_align"><i class="fa fa-align-center"></i></button>
+                        </div>
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-default-light ink-reaction js-alignment" data-value="right" data-target="#element_text_align"><i class="fa fa-align-right"></i></button>
+                        </div>
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-default-light ink-reaction js-alignment" data-value="justify" data-target="#element_text_align"><i class="fa fa-align-justify"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <button type="button" class="btn btn-sm btn-default-light ink-reaction js-decoration" data-value="underline" data-target="#element_text_decoration"><i class="fa fa-underline"></i></button>
+                <button type="button" class="btn btn-sm btn-default-light ink-reaction js-weight" data-value="bold" data-target="#element_font_weight"><i class="fa fa-bold"></i></button>
+                <button type="button" class="btn btn-sm btn-default-light ink-reaction js-style" data-value="italic" data-target="#element_font_style"><i class="fa fa-italic"></i></button>
+            </div>
+            <div class="clearfix"></div>
+
+            {{ form_row(form.letter_spacing) }}
+            {{ form_row(form.font_size) }}
+
+            {{ form_row(form.width) }}
+            {{ form_row(form.height) }}
+
+            <div class="form-group">
+                <label for="ws_doc_element_color" class="col-sm-5 control-label">Couleur</label>
+                <div class="col-md-7">
+                    <input type="text" id="ws_doc_element_color" name="ws_doc_element_color" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ws_doc_element_background_color" class="col-sm-5 control-label">Background</label>
+                <div class="col-md-7">
+                    <input type="text" id="ws_doc_element_background_color" name="ws_doc_element_background_color" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ws_doc_element_overflow" class="col-sm-5 control-label">Overflow</label>
+                <div class="col-md-7">
+                    <input type="text" id="ws_doc_element_overflow" name="ws_doc_element_overflow" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="ws_doc_element_padding" class="col-sm-5 control-label">Padding</label>
+                <div class="col-md-7">
+                    <input type="text" id="ws_doc_element_padding" name="ws_doc_element_padding" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="ws_doc_element_border_style" class="col-sm-5 control-label">Bordure Style</label>
+                <div class="col-md-7">
+                    <input type="text" id="ws_doc_element_border_style" name="ws_doc_element_border_style" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="ws_doc_element_border_width" class="col-sm-5 control-label">Bordure Epaisseur</label>
+                <div class="col-md-7">
+                    <input type="text" id="ws_doc_element_border_width" name="ws_doc_element_border_width" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="ws_doc_element_border_color" class="col-sm-5 control-label">Bordure Couleur</label>
+                <div class="col-md-7">
+                    <input type="text" id="ws_doc_element_border_color" name="ws_doc_element_border_color" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="ws_doc_element_border_radius" class="col-sm-5 control-label">Bordure Radius</label>
+                <div class="col-md-7">
+                    <input type="text" id="ws_doc_element_border_radius" name="ws_doc_element_border_radius" class="form-control">
+                </div>
+            </div>
+
+            <div class="hidden">
+                {{ form_row(form.text_align) }}
+                {{ form_row(form.font_weight) }}
+                {{ form_row(form.font_style) }}
+                {{ form_row(form.text_decoration) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

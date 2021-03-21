@@ -1,0 +1,21 @@
+services:
+    _defaults:
+        public: true
+
+    Parallalax\ApiClientBundle\Controller\DocumentController:
+        public: true
+        arguments:
+            - '@Psr\Container\ContainerInterface'
+            - '@App\Utils\RestClientFacade'
+
+    Parallalax\ApiClientBundle\Controller\DocumentElementController:
+        public: true
+        arguments:
+            - '@Psr\Container\ContainerInterface'
+            - '@App\Utils\RestClientFacade'
+
+    Parallalax\ApiClientBundle\Controller\DocumentFieldController:
+        public: true
+        arguments:
+            - '@Psr\Container\ContainerInterface'
+            - '@App\Utils\RestClientFacade'

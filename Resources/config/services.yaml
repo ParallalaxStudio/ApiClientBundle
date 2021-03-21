@@ -1,7 +1,0 @@
-services:
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-
-    Parallalax\ApiClientBundle\Controller\:
-        resource: '../../Controller/'
-        tags: [ 'controller.service_arguments' ]
