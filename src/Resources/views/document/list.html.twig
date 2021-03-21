@@ -1,0 +1,26 @@
+{% extends "@ParallalaxApiClient/base.html.twig" %}
+
+{% block parallalax_apiclient_content %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for document in documents %}
+                <tr>
+                    <td>{{ document.name }}</td>
+                    <td>
+                        <a href="{{ path('apiclient_document_edit', {'id': document.id}) }}">
+                        edit
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock parallalax_apiclient_content %}

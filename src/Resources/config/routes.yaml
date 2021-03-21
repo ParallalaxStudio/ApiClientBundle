@@ -1,0 +1,7 @@
+controllers:
+    resource: ../../Controller/
+    type: annotation
+
+#apiclient_document_home:
+#    path: /document/home
+#    controller: Parallalax\ApiClientBundle\Controller::home

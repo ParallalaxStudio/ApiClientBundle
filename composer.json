@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Parallalax\\ApiClientBundle\\": ""
+            "Parallalax\\ApiClientBundle\\": "src/"
         }
     },
     "autoload-dev": {
